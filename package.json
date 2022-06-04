@@ -4,7 +4,7 @@
   "main": "app/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "bin/www",
+    "start": "node ./bin/www",
     "build": "npm run db:migrate",
     "develop": "nodemon -q bin/www",
     "dev": "nodemon -L bin/www",
