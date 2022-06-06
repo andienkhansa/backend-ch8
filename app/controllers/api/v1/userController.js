@@ -44,6 +44,22 @@ const login = async (req, res, next) => {
     res.json({token, user});
 };
 
+const auth = async (req, res, next) => {
+    try {
+        const bearerToken = req.headers.authorization;
+        const token = bearerToken.split("Bearer ")[1];
+        const tokenPayload = verifyToken(token);
+        if (tokenPayload) {
+            next();
+        }
+    } catch (error) {
+        res.status(401).json({
+            status: "failed",
+            message: "Token expired",
+        });
+    }
+};
+
 const whoAmI = async (req, res) => {
     try {
         const bearerToken = req.headers.authorization;
@@ -95,4 +111,4 @@ const register = async (req, res) => {
     }
 };
 
-module.exports = {login, register, whoAmI};
+module.exports = {login, register, whoAmI, auth};
